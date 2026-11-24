@@ -80,3 +80,30 @@ labels = ["lint"]
 skip_install = true
 dependency_groups = ["lint"]
 commands = [["committed", { replace = "posargs", default = ["main..HEAD"], extend = true }]]
+
+# clears `dist/` first: stale artifacts never get checked or uploaded
+[env.build]
+description = "Build sdist and wheel, check metadata"
+skip_install = true
+dependency_groups = ["build"]
+allowlist_externals = ["uv"]
+commands = [
+  ["uv", "build", "--clear"],
+  ["twine", "check", "--strict", "dist/*"],
+]
+
+# token: `UV_PUBLISH_TOKEN`
+[env.upload-test]
+description = "Upload `dist/` to TestPyPI"
+skip_install = true
+allowlist_externals = ["uv"]
+pass_env = ["UV_PUBLISH_TOKEN"]
+commands = [["uv", "publish", "--publish-url", "https://test.pypi.org/legacy/"]]
+
+# token: `UV_PUBLISH_TOKEN`
+[env.upload]
+description = "Upload `dist/` to PyPI"
+skip_install = true
+allowlist_externals = ["uv"]
+pass_env = ["UV_PUBLISH_TOKEN"]
+commands = [["uv", "publish"]]
