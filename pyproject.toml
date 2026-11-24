@@ -30,6 +30,7 @@ Issues = "https://github.com/visible-xyz/doloto/issues"
 Changelog = "https://github.com/visible-xyz/doloto/releases"
 
 [dependency-groups]
+build = ["twine"]
 dev = [
   { include-group = "lint" },
   { include-group = "tests" },
