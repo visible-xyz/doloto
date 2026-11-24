@@ -1,0 +1,18 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 20814f6
+_src_path: gl:pyctrl/nest.tpl
+author_email: pyctrl.dev@gmail.com
+author_name: Dmitry Burmistrov
+copyright_holder: Visible Ideas, Inc.
+copyright_year: '2026'
+description: A chisel for data engineering
+development_status: 3 - Alpha
+keywords:
+- data-engineering
+- data-loading
+- etl
+- elt
+license: BSD-3-Clause
+package_name: doloto
+project_name: doloto
+repository_url: https://github.com/visible-xyz/doloto

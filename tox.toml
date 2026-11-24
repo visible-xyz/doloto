@@ -1,0 +1,82 @@
+requires = [
+  "tox>=4.30",
+  "tox-uv>=1.28",
+]
+env_list = [
+  "py313",
+  "py314",
+  "py315",
+  "lint-py",
+  "lint-mypy",
+  "lint-toml",
+  "lint-yaml",
+  "lint-git",
+]
+
+[env_run_base]
+description = "Run unit tests ({env_name})"
+dependency_groups = ["tests"]
+commands = [["pytest", { replace = "posargs", extend = true }]]
+
+# project installed: flake8 IMR241 imports checked modules
+[env.lint-py]
+description = "Lint: ruff check, ruff format check, flake8 import rules"
+labels = ["lint"]
+dependency_groups = ["lint"]
+ignore_errors = true # run every check, fail at the end
+commands = [
+  ["ruff", "check", "."],
+  ["ruff", "format", "--check", "-q", "."],
+  ["flake8", "."],
+]
+
+# format first so COM812 sees wrapped calls, then again to put items one per line
+[env.fmt-py]
+description = "Format: ruff format, ruff autofixes, ruff format"
+labels = ["fmt"]
+skip_install = true
+dependency_groups = ["lint"]
+commands = [
+  ["ruff", "format", "-q", "."],
+  ["ruff", "check", "--fix-only", "."],
+  ["ruff", "format", "-q", "."],
+]
+
+# project installed: mypy needs its dependencies
+[env.lint-mypy]
+description = "Type check: mypy strict"
+labels = ["lint"]
+dependency_groups = ["lint"]
+commands = [["mypy"]]
+
+[env.lint-toml]
+description = "Lint TOML: taplo lint, taplo format check"
+labels = ["lint"]
+skip_install = true
+dependency_groups = ["lint"]
+commands = [
+  ["taplo", "lint"],
+  ["taplo", "format", "--check", "--diff"],
+]
+
+[env.fmt-toml]
+description = "Format TOML: taplo format"
+labels = ["fmt"]
+skip_install = true
+dependency_groups = ["lint"]
+commands = [["taplo", "format"]]
+
+[env.lint-yaml]
+description = "Lint YAML: yamllint"
+labels = ["lint"]
+skip_install = true
+dependency_groups = ["lint"]
+commands = [["yamllint", "--strict", "."]]
+
+# commits of the branch; other range: `tox -e lint-git -- <range>`
+[env.lint-git]
+description = "Lint commit messages: committed"
+labels = ["lint"]
+skip_install = true
+dependency_groups = ["lint"]
+commands = [["committed", { replace = "posargs", default = ["main..HEAD"], extend = true }]]

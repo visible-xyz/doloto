@@ -1,0 +1,58 @@
+line-length = 88
+
+[lint]
+# RUF067 is a preview rule; explicit mode enables only preview rules listed by code
+preview = true
+explicit-preview-rules = true
+select = [
+  "COM812",  # trailing comma in wrapped calls, so formatter puts one item per line
+  "E4",      # import layout
+  "E402",    # imports only at module top
+  "E7",      # bare excepts, ambiguous names and similar
+  "E9",      # syntax and IO errors
+  "F",       # pyflakes: unused imports, undefined names
+  "I",       # isort
+  "ICN001",  # conventional import aliases, see `extend-aliases`
+  "PLC0415", # no imports inside functions/classes; `if t.TYPE_CHECKING:` allowed
+  "PLR0402", # no `import a.b as b`
+  "RUF067",  # `__init__.py` must be empty
+  "TID",     # tidy imports: ban relative imports
+  "UP",      # pyupgrade: modern syntax
+]
+
+[lint.flake8-import-conventions.extend-aliases]
+"adbc_driver_manager.dbapi" = "adbc_dbapi"
+"collections.abc" = "cabc"
+"dataclasses" = "dcs"
+"datetime" = "dtm"
+"decimal" = "dec"
+"pyarrow.compute" = "pc"
+"pyarrow.fs" = "pafs"
+"pyarrow.parquet" = "pq"
+"pydantic" = "p"
+"sqlalchemy" = "sa"
+"sqlalchemy.dialects.postgresql" = "sa_pg"
+"sqlalchemy.engine" = "sa_engine"
+"sqlalchemy.ext.asyncio" = "sa_async"
+"sqlalchemy.ext.asyncio.engine" = "sa_aengine"
+"sqlalchemy.orm" = "sa_orm"
+"sqlalchemy.types" = "sa_types"
+"sqlglot.expressions" = "exp"
+"typing" = "t"
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint.isort]
+force-single-line = true
+force-sort-within-sections = true
+lines-after-imports = 2
+
+[lint.ruff]
+# `__init__.py`: no re-exports, docstrings or side effects
+strictly-empty-init-modules = true
+
+[format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true

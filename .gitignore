@@ -1,0 +1,49 @@
+# Library projects usually do not commit dependency lockfiles
+uv.lock
+
+# IDEs and editors
+.idea/
+.vscode/
+*~
+
+# Local environment
+.env
+
+# Virtual environments
+.venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Native extensions
+*.so
+
+# Build artifacts
+build/
+dist/
+.eggs/
+*.egg
+*.egg-info/
+
+# Documentation
+docs/build/
+
+# Tool caches
+.hypothesis/
+.mypy_cache/
+.nox/
+.pytest_cache/
+.ruff_cache/
+.tox/
+
+# Test and coverage artifacts
+.coverage
+.coverage.*
+coverage.xml
+cover/
+htmlcov/
+
+# OS artifacts
+.DS_Store

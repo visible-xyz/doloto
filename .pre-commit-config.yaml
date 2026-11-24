@@ -1,0 +1,45 @@
+---
+# `pre-commit install` sets up all stages below
+default_install_hook_types:
+  - "pre-commit"
+  - "commit-msg"
+  - "pre-push"
+# commit only; hooks whose manifest lists stages set `stages` explicitly
+default_stages: ["pre-commit"]
+
+repos:
+  - repo: "https://github.com/pre-commit/pre-commit-hooks"
+    rev: "v6.0.0"
+    hooks:
+      - id: "check-added-large-files"
+        args: ["--maxkb=500"]
+        stages: ["pre-commit"]
+      - id: "detect-private-key"
+      - id: "check-merge-conflict"
+      - id: "check-json"
+      - id: "check-toml"
+      - id: "check-yaml"
+      - id: "end-of-file-fixer"
+        stages: ["pre-commit"]
+      - id: "trailing-whitespace"
+        stages: ["pre-commit"]
+      - id: "mixed-line-ending"
+        args: ["--fix=lf"]
+      - id: "no-commit-to-branch"
+        args: ["--branch=main"]
+
+  # same tools as tox, no separate version pins
+  - repo: "local"
+    hooks:
+      - id: "committed"
+        name: "committed"
+        entry: "uvx committed --commit-file"
+        language: "system"
+        stages: ["commit-msg"]
+      - id: "tox"
+        name: "tox run-parallel"
+        entry: "uvx --with tox-uv tox run-parallel"
+        language: "system"
+        pass_filenames: false
+        always_run: true
+        stages: ["pre-push"]

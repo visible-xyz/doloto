@@ -1,0 +1,18 @@
+subject_length = 70
+line_length = 88
+style = "conventional"
+# lowercase description by convention; committed can't enforce lowercase
+subject_capitalized = false
+allowed_types = [
+  "build",
+  "chore",
+  "ci",
+  "docs",
+  "feat",
+  "fix",
+  "perf",
+  "refactor",
+  "revert",
+  "style",
+  "test",
+]

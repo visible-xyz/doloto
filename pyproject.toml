@@ -1,0 +1,57 @@
+[project]
+name = "doloto"
+dynamic = ["version"]
+description = "A chisel for data engineering"
+readme = "README.md"
+authors = [{ name = "Dmitry Burmistrov", email = "pyctrl.dev@gmail.com" }]
+license = "BSD-3-Clause"
+requires-python = ">=3.13"
+keywords = [
+  "data-engineering",
+  "data-loading",
+  "etl",
+  "elt",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/visible-xyz/doloto"
+Issues = "https://github.com/visible-xyz/doloto/issues"
+Changelog = "https://github.com/visible-xyz/doloto/releases"
+
+[dependency-groups]
+dev = [
+  { include-group = "lint" },
+  { include-group = "tests" },
+]
+lint = [
+  "committed",
+  "flake8",
+  "flake8-import-restrictions",
+  "mypy",
+  "ruff",
+  "taplo",
+  "yamllint",
+]
+tests = ["pytest"]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.mypy]
+strict = true
+files = ["src"]

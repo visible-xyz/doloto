@@ -1,0 +1,16 @@
+
+# flake8 only for flake8-import-restrictions rules: ruff has no equivalents
+[flake8]
+select =
+    # no `import a.b [as c]`, write `from a import b [as c]`
+    IMR222,
+    # `from x import y` must import a module, not an object
+    IMR241,
+
+extend-exclude = .venv
+
+# plugin default excludes `typing`; check it too
+imr241_exclude = __future__
+
+# IMR222 bans `import` syntax entirely; narrowed to dotted (submodule) imports
+imr222_include = *.*
