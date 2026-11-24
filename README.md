@@ -5,6 +5,7 @@ A chisel for data engineering
 ## Status
 
 Alpha: API changes without notice until 1.0.
+Minor bumps (0.x → 0.y) may break compatibility; patch bumps (0.x.y → 0.x.z) don't.
 
 ## Installation
 
