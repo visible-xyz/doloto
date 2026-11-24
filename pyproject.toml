@@ -53,6 +53,14 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 source = "vcs"
 
+# default takes every non-ignored file, linter configs included;
+# pyproject.toml, README, LICENSE and .gitignore are added anyway
+[tool.hatch.build.targets.sdist]
+only-include = [
+  "src",
+  "tests",
+]
+
 [tool.mypy]
 strict = true
 files = ["src"]
