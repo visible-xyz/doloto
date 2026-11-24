@@ -94,6 +94,19 @@ commands = [
   ["twine", "check", "--strict", "dist/*"],
 ]
 
+# explicit list only: never glob, never `git clean -X` (would take .venv, .env)
+[env.clean]
+description = "Remove build artifacts and caches"
+skip_install = true
+commands = [
+  [
+    "python",
+    "-c",
+    "import pathlib, shutil, sys; [shutil.rmtree(pathlib.Path(sys.argv[1], d), ignore_errors=True) for d in ('build', 'dist', '.mypy_cache', '.pytest_cache', '.ruff_cache')]",
+    "{tox_root}",
+  ],
+]
+
 # token: `UV_PUBLISH_TOKEN`
 [env.upload-test]
 description = "Upload `dist/` to TestPyPI"
