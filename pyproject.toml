@@ -23,6 +23,35 @@ classifiers = [
   "Programming Language :: Python :: 3.15",
   "Typing :: Typed",
 ]
+dependencies = [
+  "izulu>=0.76",
+  "miska>=0.5",
+  "sqlglot>=28.0.0,<31",
+]
+
+[project.optional-dependencies]
+backend-arrow = [
+  "pyarrow>=26.0.1",
+]
+backend-redshift = [
+  "boto3>=1.35",
+]
+bridge-arrow-to-s3 = [
+  "pyarrow>=26.0.1",
+]
+# executors/adbc.py and executors/sa.py are TYPE_CHECKING-only — no extra needed
+executor-psycopg = [
+  "psycopg>=3.3.4",
+]
+executor-psycopg-binary = [
+  "psycopg[binary]>=3.3.4",
+]
+executor-psycopg2 = [
+  "psycopg2>=2.9.11",
+]
+executor-psycopg2-binary = [
+  "psycopg2-binary>=2.9.11",
+]
 
 [project.urls]
 Repository = "https://github.com/visible-xyz/doloto"
@@ -35,7 +64,19 @@ dev = [
   { include-group = "lint" },
   { include-group = "tests" },
 ]
+dev-integrations = [
+  "adbc-driver-manager",
+  "boto3>=1.35",
+  "psycopg[binary]>=3.3.4",
+  "psycopg2-binary>=2.9.11",
+  "pyarrow>=26.0.1",
+  "pyarrow-stubs",
+  "sqlalchemy",
+  "types-psycopg2",
+]
 lint = [
+  { include-group = "dev-integrations" },
+  "boto3-stubs[s3]>=1.35",
   "committed",
   "flake8",
   "flake8-import-restrictions",
@@ -64,3 +105,16 @@ only-include = [
 [tool.mypy]
 strict = true
 files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["miska", "miska.*"]
+follow_untyped_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+  "doloto.backends.arrow.api",
+  "doloto.bridges.arrow_to_s3",
+  "doloto.exceptions",
+  "doloto.families.sql.glot",
+]
+ignore_errors = true

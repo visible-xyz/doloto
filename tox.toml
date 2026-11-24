@@ -12,8 +12,10 @@ env_list = [
   "lint-yaml",
   "lint-git",
 ]
+ignore_base_python_conflict = true
 
 [env_run_base]
+base_python = ["py313"]
 description = "Run unit tests ({env_name})"
 dependency_groups = ["tests"]
 commands = [["pytest", { replace = "posargs", extend = true }]]
